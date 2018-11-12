@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>h5拖拽</title>
+    <style>
+        body,div,h3,p{
+            padding: 0;
+            margin: 0;
+        }
+        #father{
+            width: 400px;
+            height: 1900px;
+            /*padding: 10px;*/
+            position: relative;
+            border: 1px solid #ddd;
+            margin-left: 20px;
+        }
+        #close{
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+        }
+        #title{
+            background: #eee;
+            padding: 10px;
+            cursor: move;
+        }
+        #content{
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="father" draggable="true">
+    <span id="close">X</span>
+    <h3  id="title">标题</h3>
+    <div id="content">
+        这是内容
+    </div>
+</div>
+<script>
+    let title = document.getElementById('title'),
+        father = document.getElementById('father'),
+        offsetX,offsetY,x,y;
+    father.onmousemove = function(e){
+    }
+    father.ondragstart = function (e) {
+        e.dataTransfer.setData("infoName"," ");
+        offsetX= e.offsetX;
+        offsetY= e.offsetY;
+    }
+    father.ondrag = function (e) {
+        // e.dataTransfer.setData("infoName"," ");
+        let target = e.target;
+        x = e.pageX;
+        y = e.pageY;
+        if( x==0 && y==0)return;
+        x-=offsetX;
+        y-=offsetY;
+        father.style.left = x+'px';
+        father.style.top = y+'px'
+    }
+    father.ondragend = function (e) {
+    }
+    window.onscroll = function(){
+        console.log(document.body.clientHeight,document.body.scrollHeight,document.documentElement.scrollTop )
+    }
+
+</script>
+</body>
+</html>
