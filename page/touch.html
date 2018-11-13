@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+    <title>touch触摸事件</title>
+    <style>
+        #father{
+            height: 500px;
+            background: aqua;
+            position: relative;
+        }
+        #t1{
+            position: absolute;
+            width: 150px;
+            height: 30px;
+            border-radius: 5px;
+            border: 2px solid olivedrab;
+            margin-top: 50px;
+            display: inline-block;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="father" >
+    <span draggable="true" id="t1">拖拽元素1</span>
+</div>
+<script>
+    let t1 = document.getElementById('t1'),
+        x,y,offsetX,offsetY;
+    t1.ontouchstart = function (e) {
+        let touch = e.touches[0];
+        offsetX = touch.clientX;
+        offsetY = touch.clientY;
+        t1.style.background = 'pink';
+        console.log(touch)
+    }
+    t1.ontouchmove = function (e) {
+        let touch = e.touches[0];
+        x = touch.pageX;
+        y = touch.pageY;
+        if( x==0 && y==0)return;
+        x-=offsetX;
+        y-=offsetY;
+        t1.style.left = x +'px';
+        t1.style.top = y +'px';
+        t1.style.background = 'red'
+        console.log(offsetX,touch.pageX,x)
+    }
+    t1.ontouchend = function (e) {
+        let touch = e.touches[0];
+        t1.style.left = x +'px';
+        t1.style.top = y +'px';
+        t1.style.background = '#000'
+    }
+</script>
+</body>
+</html>
